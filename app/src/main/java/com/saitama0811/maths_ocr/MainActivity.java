@@ -24,6 +24,11 @@ import android.provider.MediaStore;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.text.TextRecognition;
+import com.google.mlkit.vision.text.TextRecognizer;
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -33,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private String photoPath;
+    private int rotationDegree = 0;
+    TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
             Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
             imageView.setImageBitmap(bitmap);
+
+            InputImage image = InputImage.fromBitmap(bitmap, rotationDegree);
 
 
 //            if (data != null) {
